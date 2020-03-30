@@ -1,0 +1,260 @@
+# Don't run this, ya dummy
+exit 1
+
+# Getting started with Arch
+
+# First, read the wiki on installation; most of these commands come from there
+# https://wiki.archlinux.org/index.php/Installation_guide
+
+# Put Arch ISO onto a usb
+fdisk -l
+umount /dev/sd<b|c>
+dd bs=4M if=<arch.iso> of=/dev/sd<b|c> status=progress  # wait till it's done, may take a while
+sync  # if it takes forever; do some research before running this
+
+# Select keyboard (this was done automatically/I didn't)
+# ls /usr/share/kbd/keymaps/**/*.map.gz
+# loadkeys <keymap>
+
+# Verify we are in UEFI boot mode
+ls /sys/firmware/efi/efivars  # something should exist here
+
+# Check we have Internet; if not, configure it (this may be needed again after Arch is installed)
+ip link
+iw dev
+iw dev wlan0 link
+ip link set wlan0 up
+ip link show wlan0
+iw dev wlan0 scan | less  # find the SSID of the network you are connecting, and the WPA type
+wpa_supplicant -B -i wlan0 -c <(wpa_passphrase SSID PASS)  # adds the network to the wpa_supplicant
+ip link show dev wlan0
+ip address show  # should not have an IP address at this point
+dhcpcd wlan0  # allow IP address to be configured by DHCP server
+ping -c 5 google.com  # you should be getting Internet at this point
+
+# Set the clock
+timedatectl set-ntp true
+timedatectl status
+
+# Partition the disks
+fdisk -l  # to see the partitions/data
+fdisk  # to partition; use the help menu alot
+# partition for /, mounted at /mnt during install
+# partition for UEFI bootloader (may already exist), mounted at /mnt/boot or /mnt/efi during install
+# partition for swap (optional)
+
+# Format the disks and turn swap on
+mkfs.ext4 /dev/sdX1
+mkswap /dev/sdX2
+swapon /dev/sdX2
+
+# Mount the partitions for install
+mount /dev/sdX1 /mnt
+mkdir /mnt/efi
+mount /dev/sdX# /mnt/efi
+
+# Edit the mirror list
+vim /etc/pacman.d/mirrorlist
+
+# Install the base packages
+pacstrap /mnt base linux linux-firmware  # append below packages here before hitting enter
+
+# Install other things you'll need, especially to get Internet running
+vim
+ip
+iw
+wpa_supplicant
+dhcpcd
+which
+sudo
+iwd  # includes iwctl
+
+
+# Generate file system table and check for errors
+genfstab -U /mnt >> /mnt/etc/fstab
+vim /mnt/etc/fstab
+
+# chroot onto the Arch install
+arch-chroot /mnt
+
+# Configure the system
+ln -sf /usr/share/zoneinfo/US/Central /etc/localtime  # set time zone
+hwclock --systohc  # generate /etc/adjtime
+vim /etc/locale.gen  # uncomment the line with "en_US.UTF-8 UTF-8"
+locale-gen  # generate the locale info
+echo "LANG=en_US.UTF-8" | tee /etc/locale.conf
+hostname='FX505DU'  # or whatever you want
+echo $hostname | tee /etc/hostname
+vim /etc/hosts  # add these lines, replacing $hostname manually
+# 127.0.0.1	localhost
+# ::1		localhost
+# 127.0.1.1	$hostname.localdomain	$hostname
+mkinitcpio -P  # not required unless LVM/encrypted/RAID
+passwd  # set the password
+
+# Re-enable internet using the steps above
+# may need to exit chroot to use the Arch installer
+# pacman -S any tools which are needed
+
+# Set up users
+useradd -m <username>
+passwd <username>
+usermod -aG wheel,audio,video,optical,storage <username>
+EDITOR="vim" visudo  # allow members of group wheel to execute commands
+
+# Install GRUB
+pacman -S grub
+pacman -S efibootmgr  # if UEFI
+grub-install  # this required troubleshooting, figure out which of these worked:
+# grub-install --efi-directory=/efi  # or efi location
+# grub-install /dev/nvme0 -- efi-directory=/efi
+# grub-install /dev/nvme0
+# grub-install /dev/nvme0n1
+# may have moved /efi into /boot? doesn't look like it with an ls
+grub-mkconfig -o /boot/grub/grub.cfg  # first build
+vim /etc/default/grub
+# default=SAVED; GRUB_SAVEDEFAULT=TRUE; timeout=-1
+grub-mkconfig -o /boot/grub/grub.cfg  # update config
+pacman -S amd-ucode  # or intel-ucode
+grub-mkconfig -o /boot/grub/grub.cfg  # automatically enables microcode
+
+# Reboot
+# Double-check internet; install packages if required
+# enable wifi at start-up
+# if "ip address show" and "ip link" don't indicate wlan and "ping google.com" doesn't work, rerun the Internet settings above
+# make sure /etc/wpa_supplicant/wpa_supplicant-wlan0.conf has the network:
+wpa_passphrase SSID PASS > /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
+# then add the following lines:
+## # Give config update rights to wpa_cli
+## ctrl_interface=/run/wpa_supplicant
+## ctrl_interface_group=wheel
+## update_config=1
+## 
+## # AP scanning
+## ap_scan=1
+## 
+## country=US
+systemctl enable wpa_supplicant@wlan0   # links to /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
+systemctl enable dhcpcd
+
+# Set up xorg
+pacman -S xorg  # gets all packages
+
+# Set up LightDM
+sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings numlockx
+ls -l /usr/share/greeters/  # make sure lightdm-gtk-greeter.desktop is present
+vim /etc/lightdm/lightdm.conf
+# greeter-session=lightdm-gtk-greeter
+# greeter-setup-script=/usr/bin/numlockx on
+systemctl enable lightdm.service
+
+# Set up LXDM
+pacman -S lxdm lxdm-gtk3
+systemctl enable lxdm.service
+
+# Set up WMs
+sudo pacman -S qtile i3-gaps
+mkdir -p ~/.config/qtile
+cp /usr/share/doc/qtile/default_config.py ~/.config/qtile/config.py  # copy default settings for qtile
+vim ~/.config/qtile/config.py  # and edit/read them
+reboot  # into lightdm
+
+# Peripherals
+pacman -S libinput  # touchpad
+pacman -S alsa-utils
+pacman -S pulseaudio pulseaudio-alsa pulseaudio-jack
+pacman -S pasystray pavucontrol
+# commands to get pasystray to run automatically:
+
+# Other software
+pacman -S terminator byobu 
+pacman -S git sshfs openvpn
+pacman -S opera firefox
+pacman -S htop iotop powertop
+pacman -S python3 python-pip
+
+# Byobu/Terminator stealing keys:
+ctrl-arrows: in .bashrc, add export TERM='xterm-256color'
+alt-arrows: right click in terminator; preferences/keybindings; use backspace to delete them
+
+
+# TODO
+# customize GRUB / get Windows back into the GRUB menu
+# customize LightDM / LXDM and get rid of the other one
+# customize Qtile
+
+# FIXME
+pacman -R $(pacman -Qtdq)  # remove unused dependencies
+
+################################################################################
+################################################################################
+################################################################################
+
+# Old stuff from [Ku|U]buntu
+
+# making an iso
+sudo -i  # root
+fdisk -l
+umount /dev/sd<b|c>
+dd bs=4M if=<input>.iso of=/dev/sd<b|c>
+
+# manual drivers
+ubuntu-drivers devices
+
+# shows the running processes by gpu
+nvidia-smi
+
+# the x server app (usually doesnt work)
+nvidia-settings
+
+# show the devices which do vga stuff
+lspci | grep -i vga
+
+# show display controllers and which drivers are in use
+lshw -class display
+
+# add proprietary drivers
+sudo apt-add-repository ppa:graphics-drivers/ppa
+sudo apt-get update
+sudo apt-get install nvidia-driver-440
+
+# switch to dedicated gpu from intel integrated graphics / sapphire coders youtube
+uname -r  # kernel
+inxi -G  # may have to install; lists drivers
+lsmod | grep <driver>
+
+# enable hybrid switchable graphics on linux / syntaxbyte youtube
+xrandr --listproviders
+xrandr --setprovideroffloadsink <dedicated id> <integrated id>  # no ouput
+glxinfo | grep 'OpenGL renderer'  # integrated
+DRI_PRIME=1 glxinfo | grep 'OpenGL renderer'  # dedicated
+
+# askubuntu.com / How to switch to discrete graphics with Ubuntu 14.04 / 2015
+sudo apt-get install fglrx-updates
+sudo aticonfig --px-dgpu  # to discrete
+sudo aticonfig --px-igpu  # to integrated
+sudo aticonfig --pxl      # status
+
+# enable ssh
+sudo apt-get install openssh-server -y
+reboot
+systemctl is-enabled ssh  # does it work automatically
+systemctl enable ssh      # if it doesn't
+systemctl is-active ssh   # is it running right now
+ip a                      # find out ip address
+#edit /etc/ssh/sshd_config # PermitRootLogin ??
+
+# games
+flightgear
+gbrainy
+gcompris
+kanagram
+minetest/minecraft
+supertuxcart
+openra
+warzone2100 ??
+
+# education
+geogebra
+kbruch
+kturtle
