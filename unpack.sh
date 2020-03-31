@@ -10,15 +10,6 @@ mkdir -p ~/.vim/colors
 cp -r ./.vim/colors ~/.vim
 
 
-# copies emacs files from this repo
-echo 'copying .emacs'
-cp .emacs ~/.emacs
-
-echo 'copying emacs color schemes'
-mkdir -p ~/.emacs.d/themes
-cp -r ./.emacs.d/themes ~/.emacs.d
-
-
 # copies bash files from this repo
 echo 'copying .bashrc'
 cp .bashrc ~/.bashrc

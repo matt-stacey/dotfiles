@@ -185,6 +185,7 @@ alt-arrows: right click in terminator; preferences/keybindings; use backspace to
 
 # FIXME
 pacman -R $(pacman -Qtdq)  # remove unused dependencies
+timedatectl / hwclock to properly set the clocks
 
 ################################################################################
 ################################################################################
