@@ -100,7 +100,7 @@ passwd  # set the password
 useradd -m <username>
 passwd <username>
 usermod -aG wheel,audio,video,optical,storage <username>
-EDITOR="vim" visudo  # allow members of group wheel to execute commands
+EDITOR="vim" visudo  # allow members of group wheel to execute commands (NOPASSWD: ALL)
 
 # Install GRUB
 pacman -S grub
@@ -172,16 +172,21 @@ pacman -S git sshfs openvpn
 pacman -S opera firefox
 pacman -S htop iotop powertop
 pacman -S python3 python-pip
+pacman -S vlc
+pacman -S wine play-on-linux
 
 # Byobu/Terminator stealing keys:
 ctrl-arrows: in .bashrc, add export TERM='xterm-256color'
 alt-arrows: right click in terminator; preferences/keybindings; use backspace to delete them
+scrolling: disable terminator "scroll on keystroke" option, make sure mouse mode is on (alt-f12), use shift+click to copy and paste
 
 
 # TODO
 # customize GRUB / get Windows back into the GRUB menu
 # customize LightDM / LXDM and get rid of the other one
 # customize Qtile
+# system tray: sound, wifi/bt, power
+# mounting drives/USBs
 
 # FIXME
 pacman -R $(pacman -Qtdq)  # remove unused dependencies
