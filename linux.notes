@@ -50,17 +50,19 @@ swapon /dev/sdX2
 
 # Mount the partitions for install
 mount /dev/sdX1 /mnt
-mkdir /mnt/efi
+mkdir /mnt/efi  # has to be done after above or it disappears
 mount /dev/sdX# /mnt/efi
 
 # Edit the mirror list
 vim /etc/pacman.d/mirrorlist
 
-# Install the base packages
+# Install the base packages with pacstrap script
 pacstrap /mnt base linux linux-firmware  # append below packages here before hitting enter
 
 # Install other things you'll need, especially to get Internet running
-vim
+opera  # web browser
+vim  # text editor
+terminator  # terminal
 ip
 iw
 wpa_supplicant
@@ -137,19 +139,24 @@ wpa_passphrase SSID PASS > /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
 systemctl enable wpa_supplicant@wlan0   # links to /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
 systemctl enable dhcpcd
 
+# Add Windows partition, if not yet found:
+pacman -S os-prober
+os-prober
+grub-mkconfig -o /boot/grub/grub.cfg  # update config
+
 # Set up xorg
 pacman -S xorg  # gets all packages
 
 # Set up LightDM
 sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings numlockx
-ls -l /usr/share/greeters/  # make sure lightdm-gtk-greeter.desktop is present
+ls -l /usr/share/[x|]greeters/  # make sure lightdm-gtk-greeter.desktop is present
 vim /etc/lightdm/lightdm.conf
 # greeter-session=lightdm-gtk-greeter
 # greeter-setup-script=/usr/bin/numlockx on
-systemctl enable lightdm.service
+systemctl enable lightdm
 
 # Set up LXDM
-pacman -S lxdm lxdm-gtk3
+pacman -S lxdm lxdm
 systemctl enable lxdm.service
 
 # Set up WMs
@@ -181,6 +188,9 @@ alt-arrows: right click in terminator; preferences/keybindings; use backspace to
 scrolling: disable terminator "scroll on keystroke" option, make sure mouse mode is on (alt-f12), use shift+click to copy and paste
 
 
+# general notes
+autostart  # file for what to run on DE startup
+
 # TODO
 # customize GRUB / get Windows back into the GRUB menu
 # customize LightDM / LXDM and get rid of the other one
@@ -190,7 +200,7 @@ scrolling: disable terminator "scroll on keystroke" option, make sure mouse mode
 
 # FIXME
 pacman -R $(pacman -Qtdq)  # remove unused dependencies
-timedatectl / hwclock to properly set the clocks
+timedatectl / hwclock to properly set the clocks  # this was done in windows somehow
 
 ################################################################################
 ################################################################################
