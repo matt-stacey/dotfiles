@@ -108,7 +108,7 @@ EDITOR="vim" visudo  # allow members of group wheel to execute commands (NOPASSW
 pacman -S grub
 pacman -S efibootmgr  # if UEFI
 grub-install  # this required troubleshooting, figure out which of these worked:
-# grub-install --efi-directory=/efi  # or efi location
+# grub-install --efi-directory=/efi  # or efi location THIS ONE WORKS IF EFI MOUNTED
 # grub-install /dev/nvme0 -- efi-directory=/efi
 # grub-install /dev/nvme0
 # grub-install /dev/nvme0n1
@@ -148,16 +148,11 @@ grub-mkconfig -o /boot/grub/grub.cfg  # update config
 pacman -S xorg  # gets all packages
 
 # Set up LightDM
-sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings numlockx
+sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
 ls -l /usr/share/[x|]greeters/  # make sure lightdm-gtk-greeter.desktop is present
 vim /etc/lightdm/lightdm.conf
 # greeter-session=lightdm-gtk-greeter
-# greeter-setup-script=/usr/bin/numlockx on
 systemctl enable lightdm
-
-# Set up LXDM
-pacman -S lxdm lxdm
-systemctl enable lxdm.service
 
 # Set up WMs
 sudo pacman -S qtile i3-gaps
@@ -166,23 +161,48 @@ cp /usr/share/doc/qtile/default_config.py ~/.config/qtile/config.py  # copy defa
 vim ~/.config/qtile/config.py  # and edit/read them
 reboot  # into lightdm
 
+# Set up Xfce
+pacman -S xfce4
+pacman -S xfce4-pulseaudio-plugin
+pacman -S xdg-user-dirs
+
 # Peripherals
-pacman -S libinput  # touchpad
+pacman -S nvidia
+pacman -S libinput  # touchpad, if needed
 pacman -S alsa-utils
 pacman -S pulseaudio pulseaudio-alsa pulseaudio-jack
-pacman -S pasystray pavucontrol
-# commands to get pasystray to run automatically:
 
 # Other software
 pacman -S terminator byobu 
 pacman -S git sshfs openvpn
 pacman -S opera firefox
 pacman -S htop iotop powertop
-pacman -S python3 python-pip
+pacman -S python python3 python-pip
 pacman -S vlc
+pacman -S redshift  # https://wiki.archlinux.org/index.php/Redshift
+pacman -S libreoffice-still
+# check on atril
+
+# Games
 pacman -S wine play-on-linux
+pacman -S steam lib32-nvidia-utils lib32-mesa ttf-liberation
+openra
+openlierox (AUR)
+gcompris-qt
+enemy-territory / etlegacy (AUR)
+oolite (aur)
+
+# IDEs
+pycharm  # https://www.jetbrains.com/pycharm/download/#section=linux
+pacman -S atom
+
+# Other programs
+CAD
+APM or equivalent
+educational
 
 # Byobu/Terminator stealing keys:
+ctrl-F#: probably the WM stealing it
 ctrl-arrows: in .bashrc, add export TERM='xterm-256color'
 alt-arrows: right click in terminator; preferences/keybindings; use backspace to delete them
 scrolling: disable terminator "scroll on keystroke" option, make sure mouse mode is on (alt-f12), use shift+click to copy and paste
@@ -192,8 +212,13 @@ scrolling: disable terminator "scroll on keystroke" option, make sure mouse mode
 autostart  # file for what to run on DE startup
 
 # TODO
-# customize GRUB / get Windows back into the GRUB menu
-# customize LightDM / LXDM and get rid of the other one
+# customize GRUB
+# customize LightDM
+download theme not adwaita
+# customize Xfce
+download theme not adwaita
+# customize terminator for byobu
+
 # customize Qtile
 # system tray: sound, wifi/bt, power
 # mounting drives/USBs
@@ -201,6 +226,17 @@ autostart  # file for what to run on DE startup
 # FIXME
 pacman -R $(pacman -Qtdq)  # remove unused dependencies
 timedatectl / hwclock to properly set the clocks  # this was done in windows somehow
+
+# OSR programs
+terminator
+byobu
+openvpn
+firefox
+python
+python3
+libreoffice
+okular/evince or pdf viewer
+atom/sublime?
 
 ################################################################################
 ################################################################################
