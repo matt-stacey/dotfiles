@@ -102,7 +102,8 @@ passwd  # set the password
 useradd -m <username>
 passwd <username>
 usermod -aG wheel,audio,video,optical,storage <username>
-EDITOR="vim" visudo  # allow members of group wheel to execute commands (NOPASSWD: ALL)
+ln -s vim vi  # sim link vi command to vim
+visudo  # allow members of group wheel to execute commands (NOPASSWD: ALL)
 
 # Install GRUB
 pacman -S grub
@@ -182,6 +183,13 @@ pacman -S vlc
 pacman -S redshift  # https://wiki.archlinux.org/index.php/Redshift
 pacman -S libreoffice-still
 # check on atril
+
+# Power management
+powertop --calibrate  # a few times, beware rfkill
+powertop --html  # seg fault?
+pacman -S tlp
+tlp start
+systemctl enable tlp.service
 
 # Games
 pacman -S wine play-on-linux
