@@ -49,7 +49,7 @@ mkswap /dev/sdX2
 swapon /dev/sdX2
 
 # Mount the partitions for install
-mount /dev/sdX1 /mnt
+mount /dev/sdX1 /mnt  # could be an nvme drive
 mkdir /mnt/efi  # has to be done after above or it disappears
 mount /dev/sdX# /mnt/efi
 
@@ -163,7 +163,7 @@ vim ~/.config/qtile/config.py  # and edit/read them
 reboot  # into lightdm
 
 # Set up Xfce
-pacman -S xfce4
+pacman -S xfce4 xfce4-goodies
 pacman -S xfce4-pulseaudio-plugin
 pacman -S xdg-user-dirs
 
@@ -181,8 +181,8 @@ pacman -S htop iotop powertop
 pacman -S python python3 python-pip
 pacman -S vlc
 pacman -S redshift  # https://wiki.archlinux.org/index.php/Redshift
-pacman -S libreoffice-still
-# check on atril
+pacman -S libreoffice-still  # hunspell hunspell-en_US hyphen hyphen-en libmythes mythes-en
+pacman -S evince
 
 # Power management
 powertop --calibrate  # a few times, beware rfkill
@@ -202,7 +202,7 @@ oolite (aur)
 
 # IDEs
 pycharm  # https://www.jetbrains.com/pycharm/download/#section=linux
-pacman -S atom
+pacman -S atom  # monokai 0.24.0 and monokai-dark 1.5.0 themes
 
 # Other programs
 CAD
@@ -215,16 +215,26 @@ ctrl-arrows: in .bashrc, add export TERM='xterm-256color'
 alt-arrows: right click in terminator; preferences/keybindings; use backspace to delete them
 scrolling: disable terminator "scroll on keystroke" option, make sure mouse mode is on (alt-f12), use shift+click to copy and paste
 
+# git repos
+MidhunSureshR/openauranb  # control keyboard backlight
+hanschen/ksuperkey  # use win key in combos
 
 # general notes
 autostart  # file for what to run on DE startup
+/var/cache/pacman/pkg  # pacman package cache
+/var/log/pacman.log  # pacman install logs
 
 # TODO
 # customize GRUB
+pacman -S grub-customizer
+make it look like E:D?
+move to dotfiles
 # customize LightDM
 download theme not adwaita
+move to dotfiles
 # customize Xfce
 download theme not adwaita
+move to dotfiles
 # customize terminator for byobu
 
 # customize Qtile
@@ -234,6 +244,8 @@ download theme not adwaita
 # FIXME
 pacman -R $(pacman -Qtdq)  # remove unused dependencies
 timedatectl / hwclock to properly set the clocks  # this was done in windows somehow
+autostart redshift
+systray: network info
 
 # OSR programs
 terminator
@@ -244,7 +256,7 @@ python
 python3
 libreoffice
 okular/evince or pdf viewer
-atom/sublime?
+atom
 
 ################################################################################
 ################################################################################
