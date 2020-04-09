@@ -202,7 +202,7 @@ oolite (aur)
 
 # IDEs
 pycharm  # https://www.jetbrains.com/pycharm/download/#section=linux
-pacman -S atom  # monokai 0.24.0 and monokai-dark 1.5.0 themes
+pacman -S code  # ms vs code
 
 # Other programs
 CAD
@@ -252,6 +252,11 @@ Hacked green  # in use, https://www.dropbox.com/s/jzinbd7o5fnkzhi/Hacked-Green.t
 hacked red/black/white  # https://www.gnome-look.org/p/1099962
 volantes  # https://www.gnome-look.org/p/1356095/
 
+# Lock screen
+xfce power manager: option to lock screen when closing lid
+xfce screensaver prefs: enable/disable...tied to enable/disable lock screen?
+xscreensaver prefs: lock timeout
+
 # general notes
 autostart  # file for what to run on DE startup
 /var/cache/pacman/pkg  # pacman package cache
@@ -287,9 +292,10 @@ openvpn
 firefox
 python
 python3
+python-pip
 libreoffice
 okular/evince or pdf viewer
-atom
+code  # vs code
 
 ################################################################################
 ################################################################################
