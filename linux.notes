@@ -219,6 +219,39 @@ scrolling: disable terminator "scroll on keystroke" option, make sure mouse mode
 MidhunSureshR/openauranb  # control keyboard backlight
 hanschen/ksuperkey  # use win key in combos
 
+# Appearance themes
+adwaita-dark  # in use, pre-installed
+black pearl  # https://www.xfce-look.org/p/1277071/ plus 'pacman -S gtk-engine-murrine'
+numix holo  # https://www.xfce-look.org/p/1016603/
+carbon banner  # https://www.pling.com/p/1306068
+
+# Icon themes
+oxy banner  # L2 in use, https://www.pling.com/p/1300159/startdownload?file_id=1560308706&file_name=oxy_banner.tar.gz&file_type=application/x-gzip&file_size=272101
+candy-icons  # https://www.gnome-look.org/s/Gnome/p/1305251
+oieicons  # https://www.gnome-look.org/s/Gnome/p/1299058
+Oxy stark/tchalla  # https://www.pling.com/p/1300159/
+
+# Fonts
+sans reg/mono reg  # nothing special
+others installed as above
+
+# Screensavers
+pacman -S xscreensaver  # scooter -root -count 15 -size 200 -ncolors 16
+
+# WM theme, ~/.themes
+neon-knights-green  # in use, https://www.xfce-look.org/p/1322236/startdownload?file_id=1567465801&file_name=Neon_Knights_Green.tar.xz&file_type=application/x-xz&file_size=10960
+neon-knights-red  # https://www.xfce-look.org/p/1322236/
+city xfce grass  # https://www.xfce-look.org/p/1165653/
+darkcold4/5  # https://www.xfce-look.org/p/1016619/
+numix holo  # https://www.xfce-look.org/p/1016603/
+pop  # https://www.xfce-look.org/p/1299758/
+# many others installed
+
+# Mouse
+Hacked green  # in use, https://www.dropbox.com/s/jzinbd7o5fnkzhi/Hacked-Green.tgz?dl=0
+hacked red/black/white  # https://www.gnome-look.org/p/1099962
+volantes  # https://www.gnome-look.org/p/1356095/
+
 # general notes
 autostart  # file for what to run on DE startup
 /var/cache/pacman/pkg  # pacman package cache
