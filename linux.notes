@@ -275,6 +275,9 @@ download theme not adwaita
 move to dotfiles
 # customize terminator for byobu
 
+# fstab management
+https://www.howtogeek.com/444814/how-to-write-an-fstab-file-on-linux/
+
 # customize Qtile
 # system tray: sound, wifi/bt, power
 # mounting drives/USBs
