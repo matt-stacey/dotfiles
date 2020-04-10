@@ -12,7 +12,7 @@ pacman -Syyu
 
 # Install minimums to operate
 pacman -S opera vim terminator sudo which
-pacman -S ip iw wpa_supplicant dhcpcd iwd
+pacman -S iw wpa_supplicant dhcpcd iwd
 
 # Ensure GRUB is up-to-date with all OSes
 pacman -S grub efibootmgr os-prober
