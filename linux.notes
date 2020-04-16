@@ -63,7 +63,7 @@ pacstrap /mnt base linux linux-firmware  # append below packages here before hit
 opera  # web browser
 vim  # text editor
 terminator  # terminal
-ip
+ip  # not a package, I think
 iw
 wpa_supplicant
 dhcpcd
@@ -168,7 +168,7 @@ pacman -S xfce4-pulseaudio-plugin
 pacman -S xdg-user-dirs
 
 # Peripherals
-pacman -S nvidia
+pacman -S nvidia  # pick for kernel (uname -r) and card
 pacman -S libinput  # touchpad, if needed
 pacman -S alsa-utils
 pacman -S pulseaudio pulseaudio-alsa pulseaudio-jack
@@ -181,6 +181,7 @@ pacman -S htop iotop powertop
 pacman -S python python3 python-pip
 pacman -S vlc
 pacman -S redshift  # https://wiki.archlinux.org/index.php/Redshift
+# to autostart redshift: Session and Startup; Application Autostart; add /usr/bin/redshift-gtk
 pacman -S libreoffice-still  # hunspell hunspell-en_US hyphen hyphen-en libmythes mythes-en
 pacman -S evince
 
@@ -192,13 +193,14 @@ tlp start
 systemctl enable tlp.service
 
 # Games
-pacman -S wine play-on-linux
+pacman -S wine playonlinux
 pacman -S steam lib32-nvidia-utils lib32-mesa ttf-liberation
 openra
 openlierox (AUR)
 gcompris-qt
 enemy-territory / etlegacy (AUR)
 oolite (aur)
+supertuxkart
 
 # IDEs
 pycharm  # https://www.jetbrains.com/pycharm/download/#section=linux
@@ -207,7 +209,8 @@ pacman -S code  # ms vs code
 # Other programs
 CAD
 APM or equivalent
-educational
+educational for kiddos
+Lua
 
 # Byobu/Terminator stealing keys:
 ctrl-F#: probably the WM stealing it
@@ -257,6 +260,20 @@ xfce power manager: option to lock screen when closing lid
 xfce screensaver prefs: enable/disable...tied to enable/disable lock screen?
 xscreensaver prefs: lock timeout
 
+# Other XFCE settings
+Appearance - Adwaita, icons (copy), sans reg 10/mono reg 10
+Panel - bar 1x22px, color #131313, icons 16 px, check manjaro for icons
+Preferred Apps - Opera, Terminator
+Xscreensaver - as above, 5 min, no lock, 1s fade, PM 2/2/4hr
+Screensaver - disable, disable lock on screensaver
+WM - neon green, sans bold 14, update keys, snap to all; no wrap
+WM Tweaks - no mousewheel on desktop, opacity during move/resize back 1 roll
+Keyboard - add shortcuts (terminator, start menu)
+Mouse - Hacked Green
+Power - ask/susp/no/no, susp/lock; sleep susp 15/4 5% shutdown; disp 1/n, 5/30, 10/n, 33%/80%, 30s/n
+LightDm GTK+ - still needs setup
+Startup - PM, Pulse, Redshift, Xscreensaver
+
 # general notes
 autostart  # file for what to run on DE startup
 /var/cache/pacman/pkg  # pacman package cache
@@ -272,7 +289,7 @@ download theme not adwaita
 move to dotfiles
 # customize Xfce
 download theme not adwaita
-move to dotfiles
+move to dotfile
 # customize terminator for byobu
 
 # fstab management
@@ -285,7 +302,6 @@ https://www.howtogeek.com/444814/how-to-write-an-fstab-file-on-linux/
 # FIXME
 pacman -R $(pacman -Qtdq)  # remove unused dependencies
 timedatectl / hwclock to properly set the clocks  # this was done in windows somehow
-autostart redshift
 systray: network info
 
 # OSR programs
