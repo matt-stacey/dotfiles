@@ -102,7 +102,7 @@ passwd  # set the password
 useradd -m <username>
 passwd <username>
 usermod -aG wheel,audio,video,optical,storage <username>
-ln -s vim vi  # sim link vi command to vim
+cd /usr/bin; sudo ln -s vim vi  # sim link vi command to vim
 visudo  # allow members of group wheel to execute commands (NOPASSWD: ALL)
 
 # Install GRUB
@@ -207,10 +207,10 @@ pycharm  # https://www.jetbrains.com/pycharm/download/#section=linux
 pacman -S code  # ms vs code
 
 # Other programs
-CAD
-APM or equivalent
+openscad  # CAD
+APM or equivalent  # https://ardupilot.org/planner2/docs/installation-for-linux.html#installation-for-linux
 educational for kiddos
-Lua
+Lua?
 
 # Byobu/Terminator stealing keys:
 ctrl-F#: probably the WM stealing it
@@ -282,14 +282,20 @@ autostart  # file for what to run on DE startup
 # TODO
 # customize GRUB
 pacman -S grub-customizer
-make it look like E:D?
+make it look like E:D
 move to dotfiles
+# http://www.gnu.org/software/grub/manual/grub/html_node/Theme-file-format.html
+# https://www.addictivetips.com/ubuntu-linux-tips/best-grub2-bootloader-themes-on-linux/
+# https://www.gnome-look.org/p/1009533/
+
 # customize LightDM
 download theme not adwaita
 move to dotfiles
+
 # customize Xfce
 download theme not adwaita
 move to dotfile
+
 # customize terminator for byobu
 
 # fstab management
