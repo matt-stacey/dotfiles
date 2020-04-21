@@ -35,6 +35,11 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+# set a color scheme for the terminal
+# makes below logic redundant, but this line is necessary for byobu
+export TERM='xterm-256color'
+export EDITOR='vim'
+
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
