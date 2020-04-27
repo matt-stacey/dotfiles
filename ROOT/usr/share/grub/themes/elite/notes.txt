@@ -1,0 +1,30 @@
+mission menu colors
+teal:       00e4ff
+unselected: 022428
+dark blue:  0073ff
+green:      00ff00
+background: 030c00
+
+ship menu colors
+light blue: 0ef0f9
+unselected: 042d4c
+orange:     faf009
+yellow:     ecf90c
+background: 0c0f0f / 0b1014
+
+corners (zero-indexed)
+GRUB:       507, 323    1241, 739
+lightdm:    634, 333    1306, 711
+
+font conversion
+sudo grub2-mkfont -s 14 -o /boot/grub2/DejaVuSansMono.pf2 /usr/share/fonts/dejavu/DejaVuSansMono.ttf
+
+customizing grub
+#sudo cp -a /etc/default/grub /etc/default/grub.bak
+#sudo vi /etc/default/grub
+#Edit the "GRUB_GFXMODE" entry to suit your resolution e.g. 800x600
+#sudo update-grub
+#Reboot - the GRUB will display in the mode you set e.g. 800x600
+
+copy to /
+sudo cp -r ROOT/usr/share/grub/themes/elite /usr/share/grub/themes
