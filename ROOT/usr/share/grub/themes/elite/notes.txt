@@ -1,30 +1,47 @@
-mission menu colors
-teal:       00e4ff
-unselected: 022428
-dark blue:  0073ff
-green:      00ff00
-background: 030c00
+# https://www.gnu.org/software/grub/manual/grub/html_node/Theme-file-format.html#Theme-file-format
 
-ship menu colors
-light blue: 0ef0f9
-unselected: 042d4c
-orange:     faf009
-yellow:     ecf90c
-background: 0c0f0f / 0b1014
+# mission menu colors
+# teal:       00e4ff
+# unselected: 022428
+# dark blue:  0073ff
+# green:      00ff00
+# background: 030c00
 
-corners (zero-indexed)
-GRUB:       507, 323    1241, 739
-lightdm:    634, 333    1306, 711
+# ship menu colors
+# unselected text:	0ef0f9	light blue	item_color
+# unselected bg:	042d4c	dark blue	item_*.png
+# selected text:	042d4c	dark blue	selected_item_color
+# selected bg:		0ef0f9	light blue	select_*.png
 
-font conversion
-sudo grub2-mkfont -s 14 -o /boot/grub2/DejaVuSansMono.pf2 /usr/share/fonts/dejavu/DejaVuSansMono.ttf
+# light blue:	0ef0f9
+# middle blue:	078dbb
+# dark blue:	042d4c
+# orange:		faf009
+# yellow:		ecf90c
+# background:	0c0f0f / 0b1014
 
-customizing grub
-#sudo cp -a /etc/default/grub /etc/default/grub.bak
-#sudo vi /etc/default/grub
-#Edit the "GRUB_GFXMODE" entry to suit your resolution e.g. 800x600
-#sudo update-grub
-#Reboot - the GRUB will display in the mode you set e.g. 800x600
+# corners (zero-indexed)
+# GRUB:		px	507, 323		1241, 739								734x416
+# .1%=2,1px	%s	26.41, 29.91	64.64, 68.43	26.3-64.75x29.8-68.5	38.45x38.7
+#			top	29.8 -> 38.7
+#			lft	26.3 -> 38.45
+# lightdm:	px	634, 333		1306, 711								672x378
+#			%s	33.02, 30.83	68.02, 65.83	32.9-68.1x30.7-65.9		35.2x35.2
 
-copy to /
-sudo cp -r ROOT/usr/share/grub/themes/elite /usr/share/grub/themes
+# font conversion
+# sudo grub2-mkfont -s 14 -o /boot/grub2/DejaVuSansMono.pf2 /usr/share/fonts/dejavu/DejaVuSansMono.ttf
+sudo grub-mkfont -s 14 -o ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis-14.pf2 ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis.book.ttf
+sudo grub-mkfont -s 20 -o ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis-20.pf2 ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis.book.ttf
+sudo grub-mkfont -s 32 -o ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis-32.pf2 ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis.book.ttf
+
+# customizing grub
+# sudo cp -a /etc/default/grub /etc/default/grub.bak
+# sudo vi /etc/default/grub
+# Edit the "GRUB_GFXMODE" entry to suit your resolution e.g. 800x600
+# sudo update-grub
+# Reboot - the GRUB will display in the mode you set e.g. 800x600
+
+# remove and replace to /
+sudo rm -rf /usr/share/grub/themes/elite
+sudo cp -r ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite /usr/share/grub/themes
+sudo rm -rf /usr/share/grub/themes/elite/unused
