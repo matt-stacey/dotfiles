@@ -11,6 +11,7 @@
 # selected bg:		0ef0f9	light blue	select_*.png
 
 # light blue:	0ef0f9
+# ligher blue:	098fa3
 # middle blue:	078dbb
 # dark blue:	042d4c
 # orange:		faf009
@@ -28,21 +29,21 @@ desktop-image-scale-method: "stretch"
 
 # General settings
 # Currently unused. Left for backward compatibility.
-message-font: "Dosis Regular 20"
+message-font: "Dosis Regular 40"
 message-color: "#0ef0f9"
 message-bg-color: "#042d4c"
 
 # Text box at top
-+ label {
-	left = 0
-	width = 100%
-	top = 10%-25
-	height = 20
-	text = "@KEYMAP_MIDDLE@"
-	align = "center"
-	font = "Dosis Regular 14"
-	color = "#0ef0f9"
-}
+# + label {
+# 	left = 0
+# 	width = 100%
+# 	top = 10%-25
+# 	height = 20
+# 	text = "@KEYMAP_MIDDLE@"
+# 	align = "center"
+# 	font = "Dosis Regular 40"
+# 	color = "#0ef0f9"
+# }
 
 # "Ship Interface" menu
 + boot_menu {
@@ -52,22 +53,22 @@ message-bg-color: "#042d4c"
 	# corners (zero-indexed)
 	# GRUB:		px	507, 323		1241, 739								734x416
 	# .1%=2,1px	%s	26.41, 29.91	64.64, 68.43	26.3-64.75x29.8-68.5	38.45x38.7
-	#			top	29.8 -> 38.7
-	#			lft	26.3 -> 38.45
+	#			top	29 -> 69 = 40
+	#			lft	26 -> 65 = 39
 	# left = 508
 	# width = 732
 	# top = 324
 	# height = 414
-	left = 26.3%
-	width = 38.45%
-	top = 29.8%
-	height = 38.7%
+	left = 26%
+	width = 40%
+	top = 28%
+	height = 43%
 
 	# text fonts and colors
-	item_font = "Dosis Regular 20"
+	item_font = "Dosis Regular 40"
 	item_color = "#0ef0f9"
 	item_pixmap_style = "item_*.png"
-	selected_item_font = "Dosis Regular 20"
+	selected_item_font = "Dosis Regular 40"
 	selected_item_color= "#042d4c"
 	selected_item_pixmap_style = "select_*.png"
 
@@ -88,13 +89,14 @@ message-bg-color: "#042d4c"
 #progress bar
 + progress_bar {
 	id = "__timeout__"
-    left = 50%-125
-    width = 250
-    top = 70%
+	# run along ship interface menu
+    left = 26%
+    width = 40%
+    top = 71%
     height = 20
 
 	show_text = true
-	font = "Dosis Regular 14"
+	font = "Dosis Regular 40"
 	text_color = "#0ef0f9"
 	text = "@TIMEOUT_NOTIFICATION_MIDDLE@"
 
@@ -104,12 +106,46 @@ message-bg-color: "#042d4c"
 }
 
 # Text box at bottom
-+ vbox {
-    left = 50%-125
-    width = 250
-    top = 80%
-    + label { width = 250 height = 20 align = "center" color = "#0ef0f9" font = "Dosis Regular 14" text = "[↵] Boot selected OS" }
-    + label { width = 250 height = 20 align = "center" color = "#0ef0f9" font = "Dosis Regular 14" text = "[↑ and ↓ Key] Navigation" }
-    + label { width = 250 height = 20 align = "center" color = "#0ef0f9" font = "Dosis Regular 14" text = "[E] Edit Selection" }
-    + label { width = 250 height = 20 align = "center" color = "#0ef0f9" font = "Dosis Regular 14" text = "[C] GRUB Commandline" }
++ hbox{
+	left = 26%
+	width = 40%
+	top = 71%+30
+	+ vbox {
+	    width = 20%
+	    + label { 
+			width = 20%
+			height = 20
+			align = "center" 
+			color = "#0ef0f9" 
+			font = "Dosis Regular 40"
+			text = "[↑ and ↓ Key] Navigation"
+		}
+	    + label { 
+			width = 20%
+			height = 20
+			align = "center" 
+			color = "#0ef0f9" 
+			font = "Dosis Regular 40"
+			text = "[↵] Boot selected OS"
+		}
+	}
+	+ vbox {
+	    width = 20%
+	    + label { 
+			width = 20%
+			height = 20
+			align = "center" 
+			color = "#0ef0f9" 
+			font = "Dosis Regular 40"
+			text = "[E] Edit Selection"
+		}
+	    + label { 
+			width = 20%
+			height = 20
+			align = "center" 
+			color = "#0ef0f9" 
+			font = "Dosis Regular 40"
+			text = "[C] GRUB Commandline
+		}
+	}
 }

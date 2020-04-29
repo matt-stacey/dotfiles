@@ -45,3 +45,5 @@ sudo grub-mkfont -s 32 -o ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis-
 sudo rm -rf /usr/share/grub/themes/elite
 sudo cp -r ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite /usr/share/grub/themes
 sudo rm -rf /usr/share/grub/themes/elite/unused
+sudo rm -rf /usr/share/grub/themes/elite/drafting
+
