@@ -60,9 +60,9 @@ message-bg-color: "#042d4c"
 	# top = 324
 	# height = 414
 	left = 26%
-	width = 40%
-	top = 28%
-	height = 43%
+	width = 39%
+	top = 29%
+	height = 41%
 
 	# text fonts and colors
 	item_font = "Dosis Regular 40"
@@ -91,9 +91,9 @@ message-bg-color: "#042d4c"
 	id = "__timeout__"
 	# run along ship interface menu
     left = 26%
-    width = 40%
-    top = 71%
-    height = 20
+    width = 39%
+    top = 70%
+    height = 60
 
 	show_text = true
 	font = "Dosis Regular 40"
@@ -106,46 +106,12 @@ message-bg-color: "#042d4c"
 }
 
 # Text box at bottom
-+ hbox{
-	left = 26%
-	width = 40%
-	top = 71%+30
-	+ vbox {
-	    width = 20%
-	    + label { 
-			width = 20%
-			height = 20
-			align = "center" 
-			color = "#0ef0f9" 
-			font = "Dosis Regular 40"
-			text = "[↑ and ↓ Key] Navigation"
-		}
-	    + label { 
-			width = 20%
-			height = 20
-			align = "center" 
-			color = "#0ef0f9" 
-			font = "Dosis Regular 40"
-			text = "[↵] Boot selected OS"
-		}
-	}
-	+ vbox {
-	    width = 20%
-	    + label { 
-			width = 20%
-			height = 20
-			align = "center" 
-			color = "#0ef0f9" 
-			font = "Dosis Regular 40"
-			text = "[E] Edit Selection"
-		}
-	    + label { 
-			width = 20%
-			height = 20
-			align = "center" 
-			color = "#0ef0f9" 
-			font = "Dosis Regular 40"
-			text = "[C] GRUB Commandline
-		}
-	}
++ vbox {
+    left = 26%
+    width = 39%
+    top = 70%+75
+	+ label { width = 39% height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20"text = "[↑ and ↓ Key] Navigation" }
+	+ label { width = 39% height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20"text = "[↵] Boot selected OS" }
+	+ label { width = 39% height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20"text = "[E] Edit Selection" }
+	+ label { width = 39% height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20"text = "[C] GRUB Commandline" }
 }

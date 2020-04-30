@@ -33,6 +33,7 @@
 sudo grub-mkfont -s 14 -o ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis-14.pf2 ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis.book.ttf
 sudo grub-mkfont -s 20 -o ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis-20.pf2 ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis.book.ttf
 sudo grub-mkfont -s 32 -o ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis-32.pf2 ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis.book.ttf
+sudo grub-mkfont -s 40 -o ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis-40.pf2 ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis.book.ttf
 
 # customizing grub
 # sudo cp -a /etc/default/grub /etc/default/grub.bak
@@ -43,7 +44,9 @@ sudo grub-mkfont -s 32 -o ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite/dosis-
 
 # remove and replace to /
 sudo rm -rf /usr/share/grub/themes/elite
+
 sudo cp -r ~/Git/dotfiles/ROOT/usr/share/grub/themes/elite /usr/share/grub/themes
 sudo rm -rf /usr/share/grub/themes/elite/unused
 sudo rm -rf /usr/share/grub/themes/elite/drafting
+sudo update-grub
 
