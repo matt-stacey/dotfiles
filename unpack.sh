@@ -1,37 +1,22 @@
 #!/bin/bash -v
 
-## copies bash files from this repo
-#echo 'copying .bashrc'
-#cp .bashrc ~/.bashrc
-#
-#echo 'copying bash aliases'
-#cp .bash_aliases ~/.bash_aliases
-#
-#
-## source files
-#
-#
-#
-## run scripts
-#
-
-# init flags
-GRUB=0
-LIGHTDM=0
+# Config flags
 BASH=1
 VIM=1
-THEMES=1
 
-# consume args and set flags
+# Appearance flags
+THEMES=1
+GRUB=0
+LIGHTDM=0
+
+# Install flags
+MANJARO=0
+ARCH_CUSTOM=0
+
+# Consume args and set flags
 while (( $# )); do
 
     case $1 in
-        --grub)
-            GRUB=1
-            ;;
-        --lightdm)
-            LIGHTDM=1
-            ;;
         --no-bash)
             BASH=0
             ;;
@@ -41,6 +26,17 @@ while (( $# )); do
         --no-themes)
             THEMES=0
             ;;
+        --grub)
+            GRUB=1
+            ;;
+        --lightdm)
+            LIGHTDM=1
+            ;;
+        --manjaro-install)
+            MANJARO=1
+            ;;
+        --arch-custom)
+            ARCH_CUSTOM=1
         --print_next)
             echo 'here it is: '$2
             shift
@@ -55,23 +51,7 @@ while (( $# )); do
     shift
 done
 
-# unpack as requested
-if [ $GRUB ]
-then
-    echo 'unpacking GRUB theme'
-
-else
-    echo 'GRUB skipped!'
-fi
-
-if [ $LIGHTDM ]
-then
-    echo 'unpacking LightDM theme'
-
-else
-    echo 'LightDM skipped!'
-fi
-
+# Unpack configs
 if [ $BASH ]
 then
     echo 'unpacking bashrc and aliases'
@@ -92,10 +72,37 @@ else
     echo 'vim config and color schemes skipped!'
 fi
 
+# Unpack theming
 if [ $THEMES ]
 then
-    echo 'unpacking themes'
+    echo 'unpacking themes, icons, and cursors'
+    cp ./HOME/.icons ~/.icons
+    cp ./HOME/.themes ~/.themes
+else
+    echo 'themes, icons, and cursors skipped!'
+fi
+if [ $GRUB ]
+then
+    echo 'unpacking GRUB theme'
 
 else
-    echo 'themes skipped!'
+    echo 'GRUB skipped!'
+fi
+
+if [ $LIGHTDM ]
+then
+    echo 'unpacking LightDM theme'
+
+else
+    echo 'LightDM skipped!'
+fi
+
+# Desired setup
+if [ $MANJARO ]
+then
+    echo 'Installing additional packages to Manjaro install'
+    sudo bash manjaro_additions.sh
+elif [ $ARCH_CUSTOM ]  # mutually exclusive; Manjaro prioritized
+    echo 'Installing additional packages to bare Arch install'
+    sudo bash arch_custom.sh
 fi
