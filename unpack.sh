@@ -1,15 +1,5 @@
 #!/bin/bash -v
 
-
-## copies vim files from this repo
-#echo 'copying .vimrc'
-#cp .vimrc ~/.vimrc
-#
-#echo 'copying vim color schemes'
-#mkdir -p ~/.vim/colors
-#cp -r ./.vim/colors ~/.vim
-#
-#
 ## copies bash files from this repo
 #echo 'copying .bashrc'
 #cp .bashrc ~/.bashrc
@@ -85,7 +75,9 @@ fi
 if [ $BASH ]
 then
     echo 'unpacking bashrc and aliases'
-
+    cp ./HOME/.bashrc ~/.bashrc
+    cp ./HOME/.bash_profile ~/.bash_profile
+    cp ./HOME/.bash_aliases ~/.bash_aliases
 else
     echo 'bashrc and aliases skipped!'
 fi
@@ -93,9 +85,11 @@ fi
 if [ $VIM ]
 then
     echo 'unpacking vim config and color schemes'
-    
+    cp ./HOME/.vimrc ~/.vimrc
+    mkdir -p ~/.vim/colors
+    cp -r ./HOME/.vim/colors ~/.vim
 else
-    echo 'vim config skipped!'
+    echo 'vim config and color schemes skipped!'
 fi
 
 if [ $THEMES ]
