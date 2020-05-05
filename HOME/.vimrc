@@ -52,6 +52,7 @@ set list
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
+
 " move to beginning/end of line
 nnoremap B ^
 nnoremap E $
@@ -59,9 +60,9 @@ nnoremap E $
 " $/^ doesn't do anything
 nnoremap $ <nop>
 nnoremap ^ <nop>
+
 " highlight last inserted text
 nnoremap gV `[v`]
-
 
 " space open/closes folds
 nnoremap <space> za
@@ -83,6 +84,9 @@ nnoremap S :w<CR>
 nnoremap X Q
 nnoremap Q :wq<CR>
 
-" exit without saving
-nnoremap O :q!<CR>
+" exit without saving (requires CR for safety)
+nnoremap O :q!
 
+" inoremap: insert mode
+" inverse tab
+inoremap <S-tab> <C-d>
