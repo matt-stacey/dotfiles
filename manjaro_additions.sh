@@ -2,7 +2,7 @@
 
 # These have already been done if you made it this far:
 # pacman -S git
-# git clone https://github.com/matt-stacey/dotfiles.git
+# git clone --depth 1 https://github.com/matt-stacey/dotfiles.git
 
 # Make sure we are up to date
 echo 'Updating system'

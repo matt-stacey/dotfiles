@@ -2,7 +2,7 @@
 
 # These have already been done if you made it this far:
 # pacman -S git
-# git clone https://github.com/matt-stacey/dotfiles.git
+# git clone --depth 1 https://github.com/matt-stacey/dotfiles.git
 
 systemctl enable wpa_supplicant@wlan0
 systemctl enable dhcpcd
@@ -11,8 +11,7 @@ systemctl enable dhcpcd
 pacman -Syyu
 
 # Install minimums to operate
-pacman -S opera vim terminator sudo which
-pacman -S iw wpa_supplicant dhcpcd iwd
+pacman -S opera vim terminator sudo which iw wpa_supplicant dhcpcd iwd
 
 # Ensure GRUB is up-to-date with all OSes
 pacman -S grub efibootmgr os-prober
@@ -36,10 +35,8 @@ pacman -S xfce4 xfce4-goodies xfce4-pulseaudio-plugin xdg-user-dirs xscreensaver
 pacman -S nvidia alsa-utils pulseaudio pulseaudio-alsa pulseaudio-jack
 
 # Install some software
-pacman -S byobu sshfs openvpn firefox python python3 python-pip evince code
-pacman -S htop powertop iotop tlp
-pacman -S vlc redshift libreoffice-still
-pacman -S wine play-on-linux steam lib32-nvidia-utils lib32-mesa ttf-liberation openra gcompris-qt
+pacman -S byobu sshfs openvpn firefox python python3 python-pip evince code htop powertop iotop tlp vlc redshift libreoffice-still wine playonlinux steam lib32-nvidia-utils lib32-mesa ttf-liberation openra gcompris-qt openscad xscreensaver
+
 tlp start
 systemctl enable tlp.service
 
