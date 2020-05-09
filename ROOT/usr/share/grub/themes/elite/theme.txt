@@ -1,25 +1,7 @@
 # Elite: Dangerous theme for GRUB2
 # Matt Stacey
 # April 2020
-
-# https://www.gnu.org/software/grub/manual/grub/html_node/Theme-file-format.html#Theme-file-format
-
-# ship menu colors
-# unselected text:	0ef0f9	light blue	item_color
-# unselected bg:	042d4c	dark blue	item_*.png
-# selected text:	042d4c	dark blue	selected_item_color
-# selected bg:		0ef0f9	light blue	select_*.png
-
-# light blue:	0ef0f9
-# ligher blue:	098fa3
-# middle blue:	078dbb
-# dark blue:	042d4c
-# orange:		faf009
-# yellow:		ecf90c
-# background:	0c0f0f / 0b1014
-
-# lightdm:	px	634, 333		1306, 711								672x378
-#			%s	33.02, 30.83	68.02, 65.83	32.9-68.1x30.7-65.9		35.2x35.2
+# Untested for resolutions other than 1920x1080
 
 # General settings
 terminal-box: "terminal_box_*.png"
@@ -33,32 +15,11 @@ message-font: "Dosis Regular 40"
 message-color: "#0ef0f9"
 message-bg-color: "#042d4c"
 
-# Text box at top
-# + label {
-# 	left = 0
-# 	width = 100%
-# 	top = 10%-25
-# 	height = 20
-# 	text = "@KEYMAP_MIDDLE@"
-# 	align = "center"
-# 	font = "Dosis Regular 40"
-# 	color = "#0ef0f9"
-# }
-
 # "Ship Interface" menu
 + boot_menu {
 	id = "ship interface"
 	visible = "true"
 
-	# corners (zero-indexed)
-	# GRUB:		px	507, 323		1241, 739								734x416
-	# .1%=2,1px	%s	26.41, 29.91	64.64, 68.43	26.3-64.75x29.8-68.5	38.45x38.7
-	#			top	29 -> 69 = 40
-	#			lft	26 -> 65 = 39
-	# left = 508
-	# width = 732
-	# top = 324
-	# height = 414
 	left = 26%
 	width = 39%
 	top = 29%
@@ -79,7 +40,7 @@ message-bg-color: "#042d4c"
 	icon_height = 40
 	icon_width = 40
 
-	# scroll bar on the right
+	# scroll bar on the right if needed
 	scrollbar = true
 	scrollbar_width = 20
 	scrollbar_thumb = "slider_*.png"
@@ -89,14 +50,14 @@ message-bg-color: "#042d4c"
 #progress bar
 + progress_bar {
 	id = "__timeout__"
-	# run along ship interface menu
+	# run along underside of ship interface menu
     left = 26%
     width = 39%
     top = 70%
-    height = 60
+    height = 40
 
 	show_text = true
-	font = "Dosis Regular 40"
+	font = "Dosis Regular 20"
 	text_color = "#0ef0f9"
 	text = "@TIMEOUT_NOTIFICATION_MIDDLE@"
 
@@ -107,11 +68,11 @@ message-bg-color: "#042d4c"
 
 # Text box at bottom
 + vbox {
-    left = 26%
-    width = 39%
-    top = 70%+75
-	+ label { width = 39% height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20"text = "[↑ and ↓ Key] Navigation" }
-	+ label { width = 39% height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20"text = "[↵] Boot selected OS" }
-	+ label { width = 39% height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20"text = "[E] Edit Selection" }
-	+ label { width = 39% height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20"text = "[C] GRUB Commandline" }
+    left = 45%-150
+    top = 70%+50
+    width = 300
+    + label { width = 300 height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20" text = "[↑ and ↓ Key] Navigation" }
+	+ label { width = 300 height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20" text = "[↵] Boot selected OS" }
+	+ label { width = 300 height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20" text = "[E] Edit Selection" }
+	+ label { width = 300 height = 24 align = "center" color = "#0ef0f9" font = "Dosis Regular 20" text = "[C] GRUB Commandline" }
 }

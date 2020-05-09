@@ -6,25 +6,25 @@ VIM=1
 
 # Appearance flags
 THEMES=1
-GRUB=0
-LIGHTDM=0
+GRUB=
+LIGHTDM=
 
 # Install flags
-MANJARO=0
-ARCH_CUSTOM=0
+MANJARO=
+ARCH_CUSTOM=
 
 # Consume args and set flags
 while (( $# )); do
 
     case $1 in
         --no-bash)
-            BASH=0
+            BASH=
             ;;
         --no-vim)
-            VIM=0
+            VIM=
             ;;
         --no-themes)
-            THEMES=0
+            THEMES=
             ;;
         --grub)
             GRUB=1
@@ -37,15 +37,12 @@ while (( $# )); do
             ;;
         --arch-custom)
             ARCH_CUSTOM=1
-        --print_next)
-            echo 'here it is: '$2
-            shift
             ;;
         --*)
-            echo 'bad option: '$1
+            echo 'Bad option: '$1
             ;;
-        -*)
-            echo 'not parsed: '$1
+        *)
+            echo 'Not parsed: '$1
             ;;
     esac
     shift
@@ -54,7 +51,7 @@ done
 # Unpack configs
 if [ $BASH ]
 then
-    echo 'unpacking bashrc and aliases'
+    echo 'Unpacking bashrc and aliases'
     cp ./HOME/.bashrc ~/.bashrc
     cp ./HOME/.bash_profile ~/.bash_profile
     cp ./HOME/.bash_aliases ~/.bash_aliases
@@ -64,10 +61,10 @@ fi
 
 if [ $VIM ]
 then
-    echo 'unpacking vim config and color schemes'
+    echo 'Unpacking vim config and color schemes'
     cp ./HOME/.vimrc ~/.vimrc
-    mkdir -p ~/.vim/colors
-    cp -r ./HOME/.vim/colors ~/.vim
+    mkdir -p ~/.vim
+    cp -r ./HOME/.vim ~
 else
     echo 'vim config and color schemes skipped!'
 fi
@@ -75,23 +72,30 @@ fi
 # Unpack theming
 if [ $THEMES ]
 then
-    echo 'unpacking themes, icons, and cursors'
-    cp ./HOME/.icons ~/.icons
-    cp ./HOME/.themes ~/.themes
+    echo 'Unpacking themes, icons, and cursors'
+    cp -r ./HOME/.icons ~
+    cp -r ./HOME/.themes ~
 else
-    echo 'themes, icons, and cursors skipped!'
+    echo 'Themes, icons, and cursors skipped!'
 fi
 if [ $GRUB ]
 then
-    echo 'unpacking GRUB theme'
-
+    echo 'Unpacking GRUB theme and updating GRUB'
+    sudo cp -r ROOT/usr/share/grub/themes/elite /usr/share/grub/themes
+    sudo cp -a /etc/default/grub /etc/default/grub.bak
+    echo 'Add the following lines to GRUB config:'
+    echo 'GRUB_GFXMODE=1920x1080'
+    echo 'GRUB_THEME="/usr/share/grub/themes/elite/theme.txt"'
+    read
+    sudo vi /etc/default/grub
+    sudo update-grub
 else
     echo 'GRUB skipped!'
 fi
 
 if [ $LIGHTDM ]
 then
-    echo 'unpacking LightDM theme'
+    echo 'Unpacking LightDM theme'
 
 else
     echo 'LightDM skipped!'
@@ -103,6 +107,7 @@ then
     echo 'Installing additional packages to Manjaro install'
     sudo bash manjaro_additions.sh
 elif [ $ARCH_CUSTOM ]  # mutually exclusive; Manjaro prioritized
+then
     echo 'Installing additional packages to bare Arch install'
     sudo bash arch_custom.sh
 fi
