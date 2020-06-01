@@ -13,6 +13,15 @@ LIGHTDM=
 MANJARO=
 ARCH_CUSTOM=
 
+DEFAULTS='bashrc/aliases, vim settings, themes; no grub, no menu, no manjaro/arch packages'
+
+if [ $# -lt 1 ]
+then
+    echo 'No args passed; press Enter to proceed with the defaults: '$DEFAULTS
+    read
+fi
+
+
 # Consume args and set flags
 while (( $# )); do
 
