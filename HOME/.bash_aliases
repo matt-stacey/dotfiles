@@ -66,30 +66,44 @@ extract ()
 ## Work-related aliases and functions
 alias osr-vpn='sudo openvpn --config ~/Documents/client.ovpn'  # hard link to file
 alias sx-vpn='globalprotect connect -p connect.spacex.com'
+alias sx-stat='globalprotect show --status'
 alias no-sx='globalprotect disconnect'
 
-aore() {
-    if [ $# -eq 0 ]
+work_wrapper() {  # should never be called on its own, but could be
+    if [ $# -lt 1 ]
     then
-        echo 'ssh -YC mstacey@aore.lan.odysseyspace.net'
-        ssh -YC mstacey@aore.lan.odysseyspace.net
+        exit 1
+    fi
+    MACHINE=`echo "$1" | sed 's/./\L&/g'`  # ensure it's lowercase
+    if [ $# -eq 1 ]
+    then
+        echo 'ssh -YC mstacey@'$MACHINE'.lan.odysseyspace.net'
+        ssh -YC mstacey@$MACHINE.lan.odysseyspace.net
     else
-        case $1 in
+        case $2 in
             mount)
-                echo 'sshfs mstacey@aore.lan.odysseyspace.net:/home/mstacey/ ~/aore/'
-                sshfs mstacey@aore.lan.odysseyspace.net:/home/mstacey/ ~/aore/
+                echo 'sshfs mstacey@'$MACHINE'.lan.odysseyspace.net:/home/mstacey/ ~/'$MACHINE'/'
+                sshfs mstacey@$MACHINE.lan.odysseyspace.net:/home/mstacey/ ~/$MACHINE/
                 ;;
             unmount)
-                echo 'fusermount -u /home/matt/aore'
-                fusermount -u /home/matt/aore
+                echo 'fusermount -u /home/matt/'$MACHINE
+                fusermount -u /home/matt/$MACHINE
                 ;;
             key)
-                echo 'ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@aore.lan.odysseyspace.net'
-                ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@aore.lan.odysseyspace.net
+                echo 'ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@'$MACHINE'.lan.odysseyspace.net'
+                ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@$MACHINE.lan.odysseyspace.net
                 ;;
             *)
-                echo 'bad option'
+                echo 'bad option: '$2
                 ;;
         esac
     fi
+}
+
+aore () {
+    work_wrapper aore $@
+}
+
+udot () {
+    work_wrapper udot $@
 }
