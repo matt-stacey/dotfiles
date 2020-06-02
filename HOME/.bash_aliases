@@ -77,6 +77,13 @@ alias spacex2='deactivate; cd ~/sxivv2/spacex_ivv; source bashrc'
 alias genii2='deactivate; cd ~/sxivv2/spacex_ivv; source bashrc; cd tools/pp_tools/post_processing/genii/'
 alias c3po2='deactivate; cd ~/sxivv2/spacex_ivv; source bashrc; cd tools/pp_tools/post_processing/c3po/'
 
+alias hspacex='deactivate; cd /sx/repos-mbs/spacex_ivv; source bashrc'
+alias hosr='deactivate; cd /sx/repos-mbs/osr-tools-and-scripts/sxivv/'
+alias temp='deactivate; cd /sx/proxy/spacex/temporary'
+alias prism='deactivate; cd /sx/proxy/spacex/load_builder/proxy_standard; ./bin/prism'
+alias perf='deactivate; cd /sx/proxy/spacex/load_builder/proxy_standard; ./bin/prism --telem_host=localhost:10066'
+alias rio='deactivate; cd /sx/repos-mbs/osr-tools-and-scripts/sxivv/Crew-Displays'
+
 # VPN access
 alias osr-vpn='sudo openvpn --config ~/Documents/client.ovpn'  # hard link to file
 alias sx-vpn='globalprotect connect -p connect.spacex.com'
