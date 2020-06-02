@@ -2,6 +2,13 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# Ensure environment is set properly, if .bash_profile isn't loaded
+export EDITOR=vim
+export TERM='xterm-256color'
+
+# if this is the SpaceX laptop
+[ "$HOSTNAME" == "mstacey-840" ]  && export TERM='screen-256color'
+
 ## If not running interactively, don't do anything
 case $- in
     *i*) ;;
