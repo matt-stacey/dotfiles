@@ -64,11 +64,51 @@ extract ()
 
 
 ## Work-related aliases and functions
+alias dolph='dolphin . &'
+alias osr='deactivate; cd ~/Git/osr-tools-and-scripts/sxivv/'
+alias dragon='ssh -Y dragonpit-01.sx.odysseyspace.net'
+
+# Repo shortcuts
+alias spacex='deactivate; cd ~/sxivv/spacex_ivv; source bashrc'
+alias genii='deactivate; cd ~/sxivv/spacex_ivv; source bashrc; cd tools/pp_tools/post_processing/genii/'
+alias c3po='deactivate; cd ~/sxivv/spacex_ivv; source bashrc; cd tools/pp_tools/post_processing/c3po/'
+
+alias spacex2='deactivate; cd ~/sxivv2/spacex_ivv; source bashrc'
+alias genii2='deactivate; cd ~/sxivv2/spacex_ivv; source bashrc; cd tools/pp_tools/post_processing/genii/'
+alias c3po2='deactivate; cd ~/sxivv2/spacex_ivv; source bashrc; cd tools/pp_tools/post_processing/c3po/'
+
+# VPN access
 alias osr-vpn='sudo openvpn --config ~/Documents/client.ovpn'  # hard link to file
 alias sx-vpn='globalprotect connect -p connect.spacex.com'
 alias sx-stat='globalprotect show --status'
 alias no-sx='globalprotect disconnect'
 
+# HOOTL access
+alias hootls='hootl_agent status'
+# Current descriptors:
+# hootl-crew-d2-##  demo-2 dragon2
+# hootl-d2-c1-##    crew-1 dragon2
+# hootl-f9-d2-##    falcon9 with dragon2
+hootl() {
+    ssh -YC hootl-$1-$2-$3.sx.odysseyspace.net
+}
+hootl-pdb() {
+    telnet hootl-$1-$2-$3.sx.odysseyspace.net 10001
+}
+claim() {
+    hootl_agent claim hootl-$1-$2-$3
+}
+release() {
+    hootl_agent release hootl-$1-$2-$3
+}
+key_copy() {
+    ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@hootl-$1-$2-$3.sx.odysseyspace.net
+}
+runner() {
+    ssh -YC -i ~/.ssh/id_rsa_sx_runners gitlab-runner@runner-sx-sim$1.sx.odysseyspace.net
+}
+
+# SSH commands
 work_wrapper() {  # should never be called on its own, but could be
     if [ $# -lt 1 ]
     then
