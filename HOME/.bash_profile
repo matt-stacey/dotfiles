@@ -6,10 +6,7 @@ export EDITOR=vim
 export TERM='xterm-256color'
 
 # if this is the SpaceX laptop
-if [ $HOSTNAME -eq 'mstacey-840' ]
-then
-    export TERM='screen-256color'
-fi
+[ "$HOSTNAME" == "mstacey-840" ] && export TERM='screen-256color'
 
 # Prevent "others" from getting write permission on created files
 umask 2
