@@ -217,6 +217,7 @@ ctrl-F#: probably the WM stealing it
 ctrl-arrows: in .bashrc, add export TERM='xterm-256color'
 alt-arrows: right click in terminator; preferences/keybindings; use backspace to delete them
 scrolling: disable terminator "scroll on keystroke" option, make sure mouse mode is on (alt-f12), use shift+click to copy and paste
+Manjaro: keyboard shortcuts, drop-down to Super+T/terminator Ctrl+Alt+T
 
 # git repos
 MidhunSureshR/openauranb  # control keyboard backlight
