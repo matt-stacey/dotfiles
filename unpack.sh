@@ -1,5 +1,8 @@
 #!/bin/bash -v
 
+# Starting point
+DIR='.'
+
 # Config flags
 BASH=1
 VIM=1
@@ -47,6 +50,10 @@ while (( $# )); do
         --arch-custom)
             ARCH_CUSTOM=1
             ;;
+        --osr)  # allow osr-tools-and-scripts to unpack bash/vim settings
+            DIR='../dotfiles'
+            THEMES=
+            ;;
         --*)
             echo 'Bad option: '$1
             ;;
@@ -61,9 +68,9 @@ done
 if [ $BASH ]
 then
     echo 'Unpacking bashrc and aliases'
-    cp ./HOME/.bashrc ~/.bashrc
-    cp ./HOME/.bash_profile ~/.bash_profile
-    cp ./HOME/.bash_aliases ~/.bash_aliases
+    cp $DIR/HOME/.bashrc ~/.bashrc
+    cp $DIR/HOME/.bash_profile ~/.bash_profile
+    cp $DIR/HOME/.bash_aliases ~/.bash_aliases
 else
     echo 'bashrc and aliases skipped!'
 fi
@@ -71,9 +78,9 @@ fi
 if [ $VIM ]
 then
     echo 'Unpacking vim config and color schemes'
-    cp ./HOME/.vimrc ~/.vimrc
+    cp $DIR/HOME/.vimrc ~/.vimrc
     mkdir -p ~/.vim
-    cp -r ./HOME/.vim ~
+    cp -r $DIR/HOME/.vim ~
 else
     echo 'vim config and color schemes skipped!'
 fi
