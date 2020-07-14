@@ -111,7 +111,7 @@ release() {
 key_copy() {
     ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@hootl-$1-$2-$3.sx.odysseyspace.net
 }
-runner() {
+sx-runner() {  # don't alias this to runner, or HOOTL runner won't work
     ssh -YC -i ~/.ssh/id_rsa_sx_runners gitlab-runner@runner-sx-sim$1.sx.odysseyspace.net
 }
 
