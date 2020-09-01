@@ -1,48 +1,42 @@
 #!/bin/bash -v
-clear
 
 # copies vim files into this repo
-echo 'diff ~/.vimrc .vimrc'
-diff ~/.vimrc .vimrc
+echo 'diff ~/.vimrc HOME/.vimrc'
+diff ~/.vimrc HOME/.vimrc
 echo 'move?'
 read move
-if [[ $move -eq 'y' ]]
+if [ "$move" == "y" ]
 then
-    cp ~/.vimrc .vimrc
+    cp ~/.vimrc HOME/.vimrc
 fi
-clear
-
-
-# copies emacs files into this repo
-echo 'diff ~/.emacs .emacs'
-diff ~/.emacs .emacs
-echo 'move?'
-read move
-if [[ $move -eq 'y' ]]
-then
-    cp ~/.emacs .emacs
-fi
-clear
 
 
 # copies bash files into this repo
-echo 'diff ~/.bashrc .bashrc'
-diff ~/.bashrc .bashrc
+echo 'diff ~/.bashrc HOME/.bashrc'
+diff ~/.bashrc HOME/.bashrc
 echo 'move?'
 read move
-if [[ $move -eq 'y' ]]
+if [ "$move" == "y" ]
 then
-    cp ~/.bashrc .bashrc
+    cp ~/.bashrc HOME/.bashrc
 fi
-clear
 
-echo 'diff ~/.bash_aliases .bash_aliases'
-diff ~/.bash_aliases .bash_aliases
+echo 'diff ~/.bash_aliases HOME/.bash_aliases'
+diff ~/.bash_aliases HOME/.bash_aliases
 echo 'move?'
 read move
-if [[ $move -eq 'y' ]]
+if [ "$move" == "y" ]
 then
-    cp ~/.bash_aliases .bash_aliases
+    cp ~/.bash_aliases HOME/.bash_aliases
+fi
+
+echo 'diff ~/.bash_profile HOME/.bash_profile'
+diff ~/.bash_profile HOME/.bash_profile
+echo 'move?'
+read move
+if [ "$move" == "y" ]
+then
+    cp ~/.bash_profile HOME/.bash_profile
 fi
 
 
