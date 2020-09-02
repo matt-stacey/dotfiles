@@ -124,21 +124,21 @@ work_wrapper() {  # should never be called on its own, but could be
     MACHINE=`echo "$1" | sed 's/./\L&/g'`  # ensure it's lowercase
     if [ $# -eq 1 ]
     then
-        echo 'ssh -YC mstacey@'$MACHINE'.lan.odysseyspace.net'
-        ssh -YC mstacey@$MACHINE.lan.odysseyspace.net
+        echo 'ssh -YC mstacey@'$MACHINE
+        ssh -YC mstacey@$MACHINE
     else
         case $2 in
             mount)
-                echo 'sshfs mstacey@'$MACHINE'.lan.odysseyspace.net:/home/mstacey/ ~/'$MACHINE'/'
-                sshfs mstacey@$MACHINE.lan.odysseyspace.net:/home/mstacey/ ~/$MACHINE/
+                echo 'sshfs mstacey@'$MACHINE':/home/mstacey/ ~/'$3'/'
+                sshfs mstacey@$MACHINE:/home/mstacey/ ~/$3/
                 ;;
             unmount)
                 echo 'fusermount -u /home/matt/'$MACHINE
                 fusermount -u /home/matt/$MACHINE
                 ;;
             key)
-                echo 'ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@'$MACHINE'.lan.odysseyspace.net'
-                ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@$MACHINE.lan.odysseyspace.net
+                echo 'ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@'$MACHINE
+                ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@$MACHINE
                 ;;
             *)
                 echo 'bad option: '$2
@@ -148,9 +148,33 @@ work_wrapper() {  # should never be called on its own, but could be
 }
 
 aore () {
-    work_wrapper aore $@
+    if [ $# -lt 1 ]
+    then
+        work_wrapper aore.lan.odysseyspace.net
+    else
+        work_wrapper aore.lan.odysseyspace.net $1 aore
+    fi
 }
 
 udot () {
-    work_wrapper udot $@
+    if [ $# -lt 1 ]
+    then
+        work_wrapper udot.lan.odysseyspace.net
+    else
+        work_wrapper udot.lan.odysseyspace.net $1 udot
+    fi
 }
+
+work_ip() {
+    if [ $# -lt 1 ]
+    then
+        exit 1
+    fi
+    if [ $# -eq 1 ]
+    then
+        work_wrapper $1
+    else
+        work_wrapper $@  # requires manual selection of mount point: IP, command (,mount_point)
+    fi
+}
+
