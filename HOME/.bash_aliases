@@ -93,9 +93,8 @@ alias no-sx='globalprotect disconnect'
 # HOOTL access
 alias hootls='hootl_agent status'
 # Current descriptors:
-# hootl-crew-d2-##  demo-2 dragon2
-# hootl-d2-c1-##    crew-1 dragon2
-# hootl-f9-d2-##    falcon9 with dragon2
+# hootl d2 c1 ##    crew-1 dragon2
+# hootl f9 d2 ##    falcon9 with dragon2
 hootl() {
     ssh -YC hootl-$1-$2-$3.sx.odysseyspace.net
 }
@@ -133,8 +132,8 @@ work_wrapper() {  # should never be called on its own, but could be
                 sshfs mstacey@$MACHINE:/home/mstacey/ ~/$3/
                 ;;
             unmount)
-                echo 'fusermount -u /home/matt/'$MACHINE
-                fusermount -u /home/matt/$MACHINE
+                echo 'fusermount -u /home/matt/'$3
+                fusermount -u /home/matt/$3
                 ;;
             key)
                 echo 'ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@'$MACHINE
