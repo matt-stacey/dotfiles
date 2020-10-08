@@ -93,9 +93,8 @@ alias no-sx='globalprotect disconnect'
 # HOOTL access
 alias hootls='hootl_agent status'
 # Current descriptors:
-# hootl-crew-d2-##  demo-2 dragon2
-# hootl-d2-c1-##    crew-1 dragon2
-# hootl-f9-d2-##    falcon9 with dragon2
+# hootl d2 c1 ##    crew-1 dragon2
+# hootl f9 d2 ##    falcon9 with dragon2
 hootl() {
     ssh -YC hootl-$1-$2-$3.sx.odysseyspace.net
 }

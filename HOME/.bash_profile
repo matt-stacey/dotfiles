@@ -5,9 +5,6 @@ export LANG=en_US.UTF-8
 export EDITOR=vim
 export TERM='xterm-256color'
 
-# if this is the SpaceX laptop
-[ "$HOSTNAME" == "mstacey-840" ] && export TERM='screen-256color'
-
 # Prevent "others" from getting write permission on created files
 umask 2
 
@@ -17,4 +14,3 @@ case "$-" in
         [[ -f ~/.bashrc ]] && . ~/.bashrc
         ;;
 esac
-_byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
