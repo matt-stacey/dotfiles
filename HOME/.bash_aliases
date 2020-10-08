@@ -112,7 +112,9 @@ key_copy() {
     ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@hootl-$1-$2-$3.sx.odysseyspace.net
 }
 sx-runner() {  # don't alias this to runner, or HOOTL runner won't work
+    hootl_agent claim runner-sx-sim$1
     ssh -YC -i ~/.ssh/id_rsa_sx_runners gitlab-runner@runner-sx-sim$1.sx.odysseyspace.net
+    hootl_agent release runner-sx-sim$1
 }
 
 # SSH commands
@@ -133,8 +135,8 @@ work_wrapper() {  # should never be called on its own, but could be
                 sshfs mstacey@$MACHINE:/home/mstacey/ ~/$3/
                 ;;
             unmount)
-                echo 'fusermount -u /home/matt/'$MACHINE
-                fusermount -u /home/matt/$MACHINE
+                echo 'fusermount -u ~/'$3
+                fusermount -u ~/$3
                 ;;
             key)
                 echo 'ssh-copy-id -i ~/.ssh/id_rsa.pub mstacey@'$MACHINE
