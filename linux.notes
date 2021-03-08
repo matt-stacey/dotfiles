@@ -395,3 +395,17 @@ warzone2100 ??
 geogebra
 kbruch
 kturtle
+
+
+# troubleshooting RTL8822BE on FX505DU / Manjaro
+dhclient -r  # releases current lease and stop DCHP client; didn't work
+journalctl -u NetworkManager  # shows the NetworkManager logs
+# removing from Advanced Network Settings had no impact
+# downgrading networkmanager to 1.26 didn't help
+nmcli con/delete  # https://unix.stackexchange.com/questions/420640/unable-to-connect-to-any-wifi-with-networkmanager-due-to-error-secrets-were-req
+/var/log/pacman.log
+/var/cache/pacman/pkg/*  # for saved packages
+nmtui  # text interface, also unable to connect
+# rebooted the router, didn't help
+# install: iwconfig
+# state change: need auth -> failed (reason 'no-secrets', sys-iface-state: 'managed')
