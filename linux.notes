@@ -48,6 +48,7 @@ fdisk  # to partition; use the help menu alot
 
 # Format the disks and turn swap on
 mkfs.ext4 /dev/sdX1
+mkfs.fat -F32 /dev/sdX1  # make a FAT32 system for EFI
 mkswap /dev/sdX2
 swapon /dev/sdX2
 
