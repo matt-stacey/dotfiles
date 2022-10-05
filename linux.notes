@@ -20,6 +20,7 @@ sync  # if it takes forever; do some research before running this
 ls /sys/firmware/efi/efivars  # something should exist here
 
 # Check we have Internet; if not, configure it (this may be needed again after Arch is installed)
+# OLD AND BUSTED
 ip link
 iw dev
 iw dev wlan0 link
@@ -30,6 +31,8 @@ wpa_supplicant -B -i wlan0 -c <(wpa_passphrase SSID PASS)  # adds the network to
 ip link show dev wlan0
 ip address show  # should not have an IP address at this point
 dhcpcd wlan0  # allow IP address to be configured by DHCP server
+# NEW HOTNESS
+iwctl --passphrase=PASSPHRASE station DEVICE connect SSID
 ping -c 5 google.com  # you should be getting Internet at this point
 
 # Set the clock
