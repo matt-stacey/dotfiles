@@ -17,6 +17,7 @@ alias free='free -m'
 
 # New commands
 alias du1='du --max-depth=1'
+alias planner='flatpak run com.github.alainm23.planner &'
 
 # More ls aliases
 alias ll='ls -alF'
@@ -179,3 +180,23 @@ work_ip() {
     fi
 }
 
+share() {
+    if [ $# -lt 1 ]
+    then
+        echo 'mount or unmount?'
+    else
+        case $1 in
+            mount)
+                echo 'sshfs mstacey@udot.lan.odysseyspace.net:/share/ /home/matt/osr_share/'
+                sshfs mstacey@udot.lan.odysseyspace.net:/share/ /home/matt/osr_share/
+                ;;
+            unmount)
+                echo 'fusermount -u ~/osr_share'
+                fusermount -u ~/osr_share
+                ;;
+            *)
+                echo 'bad option: '$1
+                ;;
+        esac
+    fi
+}
